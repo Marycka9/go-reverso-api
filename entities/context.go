@@ -1,7 +1,7 @@
 package entities
 
 import (
-	"github.com/Marycka9/go-reverso-translate-api/languages"
+	"github.com/marycka9/go-reverso-api/languages"
 	"net/url"
 	"strconv"
 )

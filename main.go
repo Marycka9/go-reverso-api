@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Marycka9/go-reverso-translate-api/client"
-	"github.com/Marycka9/go-reverso-translate-api/languages"
+	"github.com/marycka9/go-reverso-api/client"
+	"github.com/marycka9/go-reverso-api/languages"
 )
 
 func main() {

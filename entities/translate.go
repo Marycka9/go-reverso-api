@@ -2,7 +2,7 @@ package entities
 
 import (
 	"encoding/json"
-	"github.com/Marycka9/go-reverso-translate-api/languages"
+	"github.com/marycka9/go-reverso-api/languages"
 )
 
 type TranslateOptions struct {
