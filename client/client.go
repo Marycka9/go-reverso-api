@@ -25,6 +25,10 @@ func NewClient() *Client {
 	}
 }
 
+func (c *Client) Close() {
+	c.Close()
+}
+
 func (c *Client) Translate(text string, srcLang, dstLang *languages.Language) (*entities.TranslateResponse, error) {
 	translateReq := entities.NewTranslateRequest(text, srcLang, dstLang)
 	requestBody, err := translateReq.MarshalJson()
