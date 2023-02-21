@@ -43,7 +43,7 @@ func (c *Client) Translate(text string, srcLang, dstLang *languages.Language) (*
 	)
 
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", "")
+	req.Header.Add("User-Agent", entities.UserAgentContextBrowser)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {

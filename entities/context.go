@@ -8,6 +8,7 @@ import (
 
 const urlContextQuery = "https://context.reverso.net/bst-query-service"
 const UserAgentContextApp = "Dalvik/2.1.0 (Linux; U; Android 9; ONEPLUS A5000 Build/PKQ1.180716.001) ReversoContext"
+const UserAgentContextBrowser = "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0"
 
 type ContextRequest struct {
 	SourceText     string `json:"source_text"`
