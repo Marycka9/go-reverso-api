@@ -62,5 +62,13 @@
   "ukrainian":{
     "code": "ua",
     "alpha3": "uk"
+  },
+  "korean":{
+    "code": "ko",
+    "alpha3": "kor"
+  },
+  "swedish":{
+    "code": "sv",
+    "alpha3": "swe"
   }
 }

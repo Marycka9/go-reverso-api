@@ -43,11 +43,25 @@ func (c *Client) Translate(text string, srcLang, dstLang *languages.Language) (*
 	)
 
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", entities.UserAgentContextBrowser)
+	req.Header.Add("X-Reverso-Origin", "context.web")
+	req.Header.Add("sec-ch-ua-platform", "\"macOS\"")
+	req.Header.Add("User-Agent", entities.GetUserAgentContextBrowser())
+	req.Header.Add("Accept", "application/json, text/javascript, */*; q=0.01")
+	req.Header.Add("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
+	req.Header.Add("sec-ch-ua-mobile", "?0")
+	req.Header.Add("Sec-Fetch-Site", "same-site")
+	req.Header.Add("Sec-Fetch-Mode", "cors")
+	req.Header.Add("Sec-Fetch-Dest", "empty")
+	req.Header.Add("host", "api.reverso.net")
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, errors.New(fmt.Sprintf("Reverso returned status code: %d", resp.StatusCode))
 	}
 
 	var translate *entities.TranslateResponse
@@ -70,7 +84,17 @@ func (c *Client) Synonyms(text string, language *languages.Language) (*entities.
 	)
 
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", "")
+	req.Header.Add("X-Reverso-Origin", "context.web")
+	req.Header.Add("sec-ch-ua-platform", "\"macOS\"")
+	req.Header.Add("User-Agent", entities.GetUserAgentContextBrowser())
+	req.Header.Add("Accept", "application/json, text/javascript, */*; q=0.01")
+	req.Header.Add("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
+	req.Header.Add("sec-ch-ua-mobile", "?0")
+	req.Header.Add("Sec-Fetch-Site", "same-site")
+	req.Header.Add("Sec-Fetch-Mode", "cors")
+	req.Header.Add("Sec-Fetch-Dest", "empty")
+	req.Header.Add("host", "api.reverso.net")
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
