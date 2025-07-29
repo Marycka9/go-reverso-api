@@ -42,10 +42,12 @@ func (c *Client) Translate(text string, srcLang, dstLang *languages.Language) (*
 		strings.NewReader(requestBody),
 	)
 
+	userAgent, userAgentIndex := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
 	req.Header.Add("X-Reverso-Origin", "context.web")
 	req.Header.Add("sec-ch-ua-platform", "\"macOS\"")
-	req.Header.Add("User-Agent", entities.GetUserAgentContextBrowser())
+	req.Header.Add("User-Agent", userAgent)
 	req.Header.Add("Accept", "application/json, text/javascript, */*; q=0.01")
 	req.Header.Add("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
@@ -61,7 +63,7 @@ func (c *Client) Translate(text string, srcLang, dstLang *languages.Language) (*
 	}
 
 	if resp.StatusCode != 200 {
-		return nil, errors.New(fmt.Sprintf("Reverso returned status code: %d", resp.StatusCode))
+		return nil, errors.New(fmt.Sprintf("Reverso returned status code: %d\nFor the next text \"%s\"\nUser-Agent-Index: %d\nUser-Agent: \"%s\"", resp.StatusCode, text, userAgentIndex, userAgent))
 	}
 
 	var translate *entities.TranslateResponse
@@ -83,10 +85,12 @@ func (c *Client) Synonyms(text string, language *languages.Language) (*entities.
 		nil,
 	)
 
+	userAgent, _ := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
 	req.Header.Add("X-Reverso-Origin", "context.web")
 	req.Header.Add("sec-ch-ua-platform", "\"macOS\"")
-	req.Header.Add("User-Agent", entities.GetUserAgentContextBrowser())
+	req.Header.Add("User-Agent", userAgent)
 	req.Header.Add("Accept", "application/json, text/javascript, */*; q=0.01")
 	req.Header.Add("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
@@ -120,8 +124,10 @@ func (c *Client) AutoComplete(text string, language *languages.Language) (*entit
 		nil,
 	)
 
+	userAgent, _ := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", "")
+	req.Header.Add("User-Agent", userAgent)
 	req.Header.Add("x-reverso-origin", "synonymapp")
 	req.Header.Add("x-reverso-ui-lang", "en")
 	req.Header.Add("authorization", fmt.Sprintf("Basic %s", entities.BearerSynonyms))
@@ -153,8 +159,10 @@ func (c *Client) Context(text string, srcLang, dstLang *languages.Language, page
 		return nil, err
 	}
 
+	userAgent, _ := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-	req.Header.Add("User-Agent", entities.UserAgentContextApp)
+	req.Header.Add("User-Agent", userAgent)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
@@ -183,8 +191,10 @@ func (c *Client) Suggest(text string, srcLang, dstLang *languages.Language) (*en
 		return nil, err
 	}
 
+	userAgent, _ := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", entities.UserAgentContextApp)
+	req.Header.Add("User-Agent", userAgent)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
@@ -228,8 +238,10 @@ func (c *Client) Speak(fileName, filePath, text string, mp3BitRate, voiceSpeed i
 		return err
 	}
 
+	userAgent, _ := entities.GetUserAgentContextBrowser()
+
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	req.Header.Add("User-Agent", entities.UserAgentContextApp)
+	req.Header.Add("User-Agent", userAgent)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
